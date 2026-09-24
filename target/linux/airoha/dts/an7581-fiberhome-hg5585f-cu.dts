@@ -31,7 +31,7 @@
 		pcs-handle = <&eth_pcs>;
 		phy-mode = "usxgmii";
 		nvmem-cell-names = "mac-address";
-		nvmem-cells = <&macaddr_factory_3e 2>;
+		nvmem-cells = <&fiberhome_base_mac 2>;
 		openwrt,netdev-name = "lan5";
 		status = "okay";
 	};
@@ -43,7 +43,7 @@
 		pcs-handle = <&usb_pcs>;
 		phy-mode = "2500base-x";
 		nvmem-cell-names = "mac-address";
-		nvmem-cells = <&macaddr_factory_3e 3>;
+		nvmem-cells = <&fiberhome_base_mac 3>;
 		openwrt,netdev-name = "lan6";
 		status = "okay";
 	};
