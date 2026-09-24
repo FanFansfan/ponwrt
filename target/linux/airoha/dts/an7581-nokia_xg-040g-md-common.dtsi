@@ -273,19 +273,42 @@
 };
 
 &gdm4 {
+	/delete-property/ pcs-handle;
+	#address-cells = <1>;
+	#size-cells = <0>;
 	status = "okay";
 
-	openwrt,netdev-name = "lan1";
+	lan_2p5g_eth: ethernet-port@0 {
+		compatible = "airoha,eth-port";
+		reg = <0>;
+		managed = "in-band-status";
+		pcs-handle = <&eth_pcs>;
+		phy-handle = <&en8811>;
+		phy-mode = "2500base-x";
+		nvmem-cell-names = "mac-address";
+		nvmem-cells = <&macaddr_factory_3e (0)>;
+		openwrt,netdev-name = "lan1";
+		status = "okay";
+	};
 
-	phy-handle = <&en8811>;
-	phy-mode = "2500base-x";
-
-	nvmem-cell-names = "mac-address";
-	nvmem-cells = <&macaddr_factory_3e (0)>;
+	lan_2p5g: ethernet-port@1 {
+		compatible = "airoha,eth-port";
+		reg = <1>;
+		managed = "in-band-status";
+		pcs-handle = <&usb_pcs>;
+		phy-mode = "2500base-x";
+		#nvmem-cells = <&lan_mac 2>;
+		#nvmem-cell-names = "mac-address";
+		openwrt,netdev-name = "lan5";
+		status = "okay";
+	};
 };
 
 &usb0 {
 	status = "okay";
+
+	mediatek,u3p-dis-msk = <0x1>;
+    phys = <&usb0_phy PHY_TYPE_USB2>;
 
 	vusb33-supply = <&reg_3p3v>;
 
