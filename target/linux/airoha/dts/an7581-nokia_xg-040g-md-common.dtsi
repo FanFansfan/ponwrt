@@ -272,6 +272,10 @@
 	active-low;
 };
 
+&usb_pcs {
+	status = "okay";
+};
+
 &gdm4 {
 	/delete-property/ pcs-handle;
 	#address-cells = <1>;
