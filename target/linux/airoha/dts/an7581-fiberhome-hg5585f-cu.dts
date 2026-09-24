@@ -17,3 +17,47 @@
 &gsw_phy1 {
 	status = "okay";
 };
+
+&gdm4 {
+	/delete-property/ pcs-handle;
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "okay";
+
+	lan_10g: ethernet-port@0 {
+		compatible = "airoha,eth-port";
+		reg = <0>;
+		managed = "in-band-status";
+		pcs-handle = <&eth_pcs>;
+		phy-mode = "usxgmii";
+		nvmem-cell-names = "mac-address";
+		nvmem-cells = <&macaddr_factory_3e 2>;
+		openwrt,netdev-name = "lan5";
+		status = "okay";
+	};
+
+	lan_2p5g: ethernet-port@1 {
+		compatible = "airoha,eth-port";
+		reg = <1>;
+		managed = "in-band-status";
+		pcs-handle = <&usb_pcs>;
+		phy-mode = "2500base-x";
+		nvmem-cell-names = "mac-address";
+		nvmem-cells = <&macaddr_factory_3e 3>;
+		openwrt,netdev-name = "lan6";
+		status = "okay";
+	};
+};
+
+&usb0 {
+	mediatek,u3p-dis-msk = <0x1>;
+    phys = <&usb0_phy PHY_TYPE_USB2>;
+
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	usb_port1: port@1 {
+		reg = <1>;
+		#trigger-source-cells = <0>;
+	};
+};
